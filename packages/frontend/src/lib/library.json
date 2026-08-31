@@ -1,0 +1,87 @@
+{
+  "type": "excalidrawlib",
+  "version": 2,
+  "source": "excalihome",
+  "libraryItems": [
+    {
+      "status": "published",
+      "elements": [
+        {
+          "type": "rectangle",
+          "x": 0,
+          "y": 0,
+          "width": 120,
+          "height": 80,
+          "strokeColor": "#1e1e1e",
+          "backgroundColor": "#e3f2fd",
+          "fillStyle": "solid",
+          "strokeWidth": 1,
+          "roughness": 1,
+          "opacity": 100
+        }
+      ],
+      "id": "box",
+      "created": 1700000000000
+    },
+    {
+      "status": "published",
+      "elements": [
+        {
+          "type": "diamond",
+          "x": 0,
+          "y": 0,
+          "width": 120,
+          "height": 80,
+          "strokeColor": "#1e1e1e",
+          "backgroundColor": "#fff3e0",
+          "fillStyle": "solid",
+          "strokeWidth": 1,
+          "roughness": 1,
+          "opacity": 100
+        }
+      ],
+      "id": "decision",
+      "created": 1700000000001
+    },
+    {
+      "status": "published",
+      "elements": [
+        {
+          "type": "ellipse",
+          "x": 0,
+          "y": 0,
+          "width": 120,
+          "height": 80,
+          "strokeColor": "#1e1e1e",
+          "backgroundColor": "#e8f5e9",
+          "fillStyle": "solid",
+          "strokeWidth": 1,
+          "roughness": 1,
+          "opacity": 100
+        }
+      ],
+      "id": "circle",
+      "created": 1700000000002
+    },
+    {
+      "status": "published",
+      "elements": [
+        {
+          "type": "arrow",
+          "x": 0,
+          "y": 40,
+          "width": 120,
+          "height": 0,
+          "strokeColor": "#1e1e1e",
+          "backgroundColor": "transparent",
+          "fillStyle": "hachure",
+          "strokeWidth": 2,
+          "roughness": 1,
+          "opacity": 100
+        }
+      ],
+      "id": "arrow",
+      "created": 1700000000003
+    }
+  ]
+}
