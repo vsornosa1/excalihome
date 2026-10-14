@@ -37,13 +37,13 @@ detection: extract `(version, versionNonce)` with deterministic defaults for mis
 fields, compare revisions, and index elements by `id`.
 
 **Acceptance criteria:**
-- [ ] `revisionOf`, `sameRevision`, and `indexElements` are exported from `packages/backend/src/lib/elements.ts`
-- [ ] A missing `version` or `versionNonce` resolves deterministically (documented default), not `NaN`/`undefined`
-- [ ] Unit tests cover equal revisions, differing `version`, differing `versionNonce`, and missing fields
+- [x] `revisionOf`, `sameRevision`, and `indexElements` are exported from `packages/backend/src/lib/elements.ts`
+- [x] A missing `version` or `versionNonce` resolves deterministically (documented default), not `NaN`/`undefined`
+- [x] Unit tests cover equal revisions, differing `version`, differing `versionNonce`, and missing fields
 
 **Verification:**
-- [ ] Tests pass: `npm test -w packages/backend -- tests/elements.test.ts`
-- [ ] Build succeeds: `npm run build -w packages/backend`
+- [x] Tests pass: `npm test -w packages/backend -- tests/elements.test.ts`
+- [x] Build succeeds: `npm run build -w packages/backend`
 
 **Dependencies:** None
 **Files likely touched:** `packages/backend/src/lib/elements.ts`, `packages/backend/tests/elements.test.ts`
