@@ -117,6 +117,37 @@ npm test -w packages/backend
 
 Tests exercise diagram create/save/load and version create/restore.
 
+## MCP server (for AI agents)
+
+`packages/mcp-server` exposes the diagram API to AI agents over the Model Context
+Protocol, so an agent can list, read, create, edit and delete diagrams and manage
+their versions. Writes go through an element-level patch endpoint that detects
+conflicts, so several agents can edit one diagram concurrently without silently
+overwriting each other.
+
+```bash
+npm install
+npm run build -w packages/mcp-server
+EXCALIHOME_API_URL=http://localhost:3001/api node packages/mcp-server/dist/index.js
+```
+
+See [`packages/mcp-server/README.md`](packages/mcp-server/README.md) for the tool
+list, client configuration, and the concurrency behavior.
+
+### Concurrent editing
+
+`POST /api/diagrams/:id/patch` applies element `add`/`update`/`delete` operations
+atomically inside a transaction that holds the diagram row lock. Each `update` and
+`delete` supplies the `baseVersion` + `baseVersionNonce` the caller last read:
+
+- edits to different elements both apply;
+- edits to the same element yield one `200` and one `409 ELEMENT_CONFLICT`.
+
+`GET /api/diagrams/:id` returns the document `version` and an `ETag`. `PUT`
+accepts an optional `baseVersion` or `If-Match` precondition and returns
+`409 STALE_DOCUMENT` when stale; without a precondition it keeps the original
+last-write-wins behavior.
+
 ## Database schema
 
 ```sql
@@ -214,6 +245,16 @@ excalihome/
 │       ├── Dockerfile
 │       ├── nginx.conf
 │       └── package.json
+│   └── mcp-server/
+│       ├── src/
+│       │   ├── index.ts        # stdio entrypoint
+│       │   ├── server.ts       # tool registration
+│       │   ├── client.ts       # backend REST client
+│       │   ├── config.ts       # EXCALIHOME_API_URL
+│       │   └── tools/
+│       │       ├── diagrams.ts
+│       │       └── versions.ts
+│       └── README.md
 └── scripts/
     └── (helper scripts)
 ```

@@ -301,15 +301,15 @@ server against a real MCP client end-to-end, and document how to build, configur
 connect the server.
 
 **Acceptance criteria:**
-- [ ] An MCP client lists exactly the ten specified tools with no duplicates
-- [ ] `patch_diagram` against a stale revision, run live, returns `isError: true` and mutates nothing
-- [ ] Documentation states the required `EXCALIHOME_API_URL` variable and the `node packages/mcp-server/dist/index.js` run command
-- [ ] Documentation records that transport is stdio and why
+- [x] An MCP client lists exactly the ten specified tools with no duplicates
+- [x] `patch_diagram` against a stale revision, run live, returns `isError: true` and mutates nothing
+- [x] Documentation states the required `EXCALIHOME_API_URL` variable and the `node packages/mcp-server/dist/index.js` run command
+- [x] Documentation records that transport is stdio and why
 
 **Verification:**
-- [ ] Manual check: connect a real MCP client and exercise `list_diagrams` + `get_diagram` + a conflicting `patch_diagram`
-- [ ] Tests pass: `npm test -w packages/mcp-server`
-- [ ] Build succeeds: `npm run build -w packages/mcp-server`
+- [x] Manual check: connect a real MCP client and exercise `list_diagrams` + `get_diagram` + a conflicting `patch_diagram` (18/18 live checks passed)
+- [x] Tests pass: `npm test -w packages/mcp-server`
+- [x] Build succeeds: `npm run build -w packages/mcp-server`
 
 **Dependencies:** Task 11
 **Files likely touched:** `packages/mcp-server/README.md`, `README.md`, `packages/mcp-server/tests/tools.test.ts`
@@ -319,8 +319,8 @@ connect the server.
 
 ## Checkpoint: Complete
 
-- [ ] All ten tools listed by an MCP client
-- [ ] `patch_diagram` on a stale revision returns `isError: true` and forces nothing
-- [ ] `npm run build -w packages/backend` and `npm run build -w packages/mcp-server` pass
-- [ ] `npm test -w packages/backend` and `npm test -w packages/mcp-server` pass
+- [x] All ten tools listed by an MCP client
+- [x] `patch_diagram` on a stale revision returns `isError: true` and forces nothing
+- [x] `npm run build -w packages/backend` and `npm run build -w packages/mcp-server` pass
+- [x] `npm test -w packages/backend` and `npm test -w packages/mcp-server` pass
 - [ ] Ready for review

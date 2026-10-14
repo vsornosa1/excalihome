@@ -75,15 +75,15 @@ tracker is configured in this repository).
 
 ### Phase 4: MCP tools — `mcp-server`
 
-- [ ] Task 9: Server bootstrap + stdio transport + diagram read/create/delete tools
-- [ ] Task 10: `patch_diagram` with structured conflict mapping
-- [ ] Task 11: Version tools (list/get/create/restore)
-- [ ] Task 12: Public API shape (all 10 tools) + live MCP client check + docs
+- [x] Task 9: Server bootstrap + stdio transport + diagram read/create/delete tools
+- [x] Task 10: `patch_diagram` with structured conflict mapping
+- [x] Task 11: Version tools (list/get/create/restore)
+- [x] Task 12: Public API shape (all 10 tools) + live MCP client check + docs
 
 ### Checkpoint: Complete
-- [ ] All ten tools listed by an MCP client
-- [ ] `patch_diagram` on a stale revision returns `isError: true` with conflicts and forces nothing
-- [ ] Both packages build; both test suites pass
+- [x] All ten tools listed by an MCP client
+- [x] `patch_diagram` on a stale revision returns `isError: true` with conflicts and forces nothing
+- [x] Both packages build; both test suites pass
 - [ ] Ready for review
 
 ## Risks and Mitigations
