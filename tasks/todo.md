@@ -93,17 +93,17 @@ request with `409 ELEMENT_CONFLICT` if any revision is stale or an id is missing
 otherwise apply the changes and increment `version`.
 
 **Acceptance criteria:**
-- [ ] Applying `add` + `update` + `delete` in one request returns `200` with `version` and an `applied` summary
-- [ ] `add` of an existing id → `409` with reason `already_exists`
-- [ ] `update`/`delete` of a missing id → `409` with reason `not_found`
-- [ ] `update`/`delete` with a mismatched revision → `409` with reason `stale_revision` and the element's current revision
-- [ ] On any conflict the document is unchanged and `version` is not incremented (atomic)
-- [ ] Concurrent access is serialized via `SELECT … FOR UPDATE` inside a transaction
+- [x] Applying `add` + `update` + `delete` in one request returns `200` with `version` and an `applied` summary
+- [x] `add` of an existing id → `409` with reason `already_exists`
+- [x] `update`/`delete` of a missing id → `409` with reason `not_found`
+- [x] `update`/`delete` with a mismatched revision → `409` with reason `stale_revision` and the element's current revision
+- [x] On any conflict the document is unchanged and `version` is not incremented (atomic)
+- [x] Concurrent access is serialized via `SELECT … FOR UPDATE` inside a transaction
 
 **Verification:**
-- [ ] Tests pass: `npm test -w packages/backend -- tests/patch.test.ts`
-- [ ] Build succeeds: `npm run build -w packages/backend`
-- [ ] Manual check: rejected patch leaves `SELECT version FROM diagrams` unchanged
+- [x] Tests pass: `npm test -w packages/backend -- tests/patch.test.ts`
+- [x] Build succeeds: `npm run build -w packages/backend`
+- [x] Manual check: rejected patch leaves `SELECT version FROM diagrams` unchanged
 
 **Dependencies:** Tasks 1, 2, 3
 **Files likely touched:** `packages/backend/src/routes/patch.ts`, `packages/backend/src/index.ts`, `packages/backend/tests/patch.test.ts`
@@ -119,15 +119,15 @@ patch endpoint, and let `PUT` accept an optional `baseVersion` body field or
 must behave exactly as before, still incrementing `version`.
 
 **Acceptance criteria:**
-- [ ] `patch` with `force: true` overwrites a stale element instead of returning `409`
-- [ ] `PUT` with a stale `baseVersion` returns `409` with `code: "STALE_DOCUMENT"`
-- [ ] `PUT` with a matching `baseVersion` or `If-Match` succeeds and increments `version`
-- [ ] `PUT` with no precondition succeeds exactly as before (backwards compatible)
-- [ ] `force` still applies all changes atomically (no partial application)
+- [x] `patch` with `force: true` overwrites a stale element instead of returning `409`
+- [x] `PUT` with a stale `baseVersion` returns `409` with `code: "STALE_DOCUMENT"`
+- [x] `PUT` with a matching `baseVersion` or `If-Match` succeeds and increments `version`
+- [x] `PUT` with no precondition succeeds exactly as before (backwards compatible)
+- [x] `force` still applies all changes atomically (no partial application)
 
 **Verification:**
-- [ ] Tests pass: `npm test -w packages/backend`
-- [ ] Build succeeds: `npm run build -w packages/backend`
+- [x] Tests pass: `npm test -w packages/backend`
+- [x] Build succeeds: `npm run build -w packages/backend`
 
 **Dependencies:** Task 4
 **Files likely touched:** `packages/backend/src/routes/patch.ts`, `packages/backend/src/routes/diagrams.ts`, `packages/backend/tests/patch.test.ts`
@@ -143,14 +143,15 @@ commit; two writers editing the same element concurrently must produce exactly o
 success and one `409`.
 
 **Acceptance criteria:**
-- [ ] Two `Promise.all` patches on disjoint elements both return `200` and leave both edits present
-- [ ] `version` advances by exactly 2 for the disjoint case
-- [ ] Two `Promise.all` patches on the same element yield exactly one `200` and one `409 ELEMENT_CONFLICT`
-- [ ] The winning edit is present and the losing edit is absent (no merge corruption)
+- [x] Two `Promise.all` patches on disjoint elements both return `200` and leave both edits present
+- [x] `version` advances by exactly 2 for the disjoint case
+- [x] Two `Promise.all` patches on the same element yield exactly one `200` and one `409 ELEMENT_CONFLICT`
+- [x] The winning edit is present and the losing edit is absent (no merge corruption)
+- [x] A deterministic test proves the row lock is what prevents the lost update (fails when `FOR UPDATE` is removed)
 
 **Verification:**
-- [ ] Tests pass: `npm test -w packages/backend -- tests/patch.test.ts`
-- [ ] Manual check: run the concurrency test file repeatedly and confirm it is not flaky
+- [x] Tests pass: `npm test -w packages/backend -- tests/patch.test.ts`
+- [x] Manual check: run the concurrency test file repeatedly and confirm it is not flaky (4 consecutive runs green)
 
 **Dependencies:** Tasks 4, 5
 **Files likely touched:** `packages/backend/tests/patch.test.ts`
@@ -160,9 +161,9 @@ success and one `409`.
 
 ## Checkpoint: Core Features (module `diagram-concurrency` complete)
 
-- [ ] Disjoint concurrent edits both commit; overlapping edits yield exactly one `409`
-- [ ] Rejected patches leave the document byte-identical and do not bump `version`
-- [ ] `npm test -w packages/backend` is green and not flaky across repeated runs
+- [x] Disjoint concurrent edits both commit; overlapping edits yield exactly one `409`
+- [x] Rejected patches leave the document byte-identical and do not bump `version`
+- [x] `npm test -w packages/backend` is green and not flaky across repeated runs
 - [ ] Review with human before proceeding
 
 ---

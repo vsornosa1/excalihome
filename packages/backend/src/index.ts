@@ -2,6 +2,7 @@ import "dotenv/config";
 import express from "express";
 import cors from "cors";
 import diagramRoutes from "./routes/diagrams";
+import patchRoutes from "./routes/patch";
 import versionRoutes from "./routes/versions";
 
 const app = express();
@@ -12,6 +13,7 @@ app.use(express.json({ limit: "50mb" }));
 
 app.get("/api/health", (_req, res) => res.json({ ok: true }));
 app.use("/api/diagrams", diagramRoutes);
+app.use("/api/diagrams", patchRoutes);
 app.use("/api/diagrams", versionRoutes);
 
 if (process.env.NODE_ENV !== "test") {

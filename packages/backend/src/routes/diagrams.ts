@@ -1,4 +1,4 @@
-import { Router } from "express";
+import { Router, Request } from "express";
 import { randomUUID } from "crypto";
 import pool from "../db";
 
@@ -24,6 +24,24 @@ const DETAIL_COLS = "id, name, slug, thumbnail, data, version, created_at, updat
 
 // Matches either a UUID or a slug
 const WHERE_ID_OR_SLUG = "(id::text = $1 OR slug = $1)";
+
+/**
+ * Optional write precondition for PUT, from a `baseVersion` body field or an
+ * `If-Match` header (`W/"5"` or `5`). `*` and unparseable values mean "no
+ * precondition", which keeps the existing last-write-wins behavior available.
+ */
+function expectedVersionFrom(req: Request): number | undefined {
+  const bodyVersion = (req.body ?? {}).baseVersion;
+  if (typeof bodyVersion === "number" && Number.isFinite(bodyVersion)) {
+    return bodyVersion;
+  }
+  const header = req.get("If-Match");
+  if (header) {
+    const match = /\d+/.exec(header);
+    if (match) return Number(match[0]);
+  }
+  return undefined;
+}
 
 router.get("/", async (_req, res) => {
   const { rows } = await pool.query(
@@ -82,14 +100,36 @@ router.put("/:id", async (req, res) => {
     res.status(400).json({ error: "No fields to update" });
     return;
   }
+
+  const expectedVersion = expectedVersionFrom(req);
   values.push(req.params.id);
+  let where = WHERE_ID_OR_SLUG.replace(/\$1/g, `$${idx}`);
+  if (expectedVersion !== undefined) {
+    values.push(expectedVersion);
+    where += ` AND version = $${idx + 1}`;
+  }
 
   const { rows } = await pool.query(
-    `UPDATE diagrams SET ${updates.join(", ")} WHERE ${WHERE_ID_OR_SLUG.replace(/\$1/g, `$${idx}`)}
+    `UPDATE diagrams SET ${updates.join(", ")}, version = version + 1
+     WHERE ${where}
      RETURNING ${LIST_COLS}`,
     values
   );
   if (!rows.length) {
+    if (expectedVersion !== undefined) {
+      const existing = await pool.query(
+        `SELECT version FROM diagrams WHERE ${WHERE_ID_OR_SLUG}`,
+        [req.params.id]
+      );
+      if (existing.rows.length) {
+        res.status(409).json({
+          error: "Conflict",
+          code: "STALE_DOCUMENT",
+          currentVersion: existing.rows[0].version,
+        });
+        return;
+      }
+    }
     res.status(404).json({ error: "Diagram not found" });
     return;
   }

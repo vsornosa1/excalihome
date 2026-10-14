@@ -160,6 +160,26 @@ Semantics (all-or-nothing, evaluated inside one transaction holding the row lock
 5. On success: increment `diagrams.version` by 1, write `data`, return the new
    version. `updated_at` is set by the existing trigger.
 
+Validation (rejected with `400` before any database work):
+
+- `add`, `update`, `delete` must be arrays and `force` must be a boolean, else
+  `400 INVALID_REQUEST`.
+- Every entry needs a non-empty string `id`, else `400 INVALID_ELEMENT`.
+- Unless `force` is true, `update` and `delete` entries need finite numeric
+  `baseVersion` and `baseVersionNonce`, else `400 MISSING_PRECONDITION`. Applying
+  a write whose precondition was never supplied cannot be verified, so it is
+  refused rather than treated as last-write-wins.
+
+The `baseVersion` / `baseVersionNonce` precondition fields are stripped before the
+element is stored, so diagram data stays valid Excalidraw JSON.
+
+Serialization: the read is `SELECT … FOR UPDATE`, so the read-modify-write is
+atomic. Without the row lock two writers can both read the pre-state, both pass the
+conflict check, and the second silently overwrites the first. This is covered by a
+deterministic test (`tests/patch.test.ts`, "prevents a lost update…") that holds the
+row in one transaction and confirms the two competing patches are rejected/accepted
+one-and-one rather than both applying.
+
 Success `200`:
 
 ```json
@@ -203,7 +223,10 @@ Conflict `409` (nothing was applied):
     id → `409 not_found`;
   - a rejected patch leaves the document byte-identical and does not bump `version`;
   - `force: true` overwrites a stale element;
-  - `PUT` with a stale `baseVersion` → `409 STALE_DOCUMENT`; without it still `200`.
+  - `PUT` with a stale `baseVersion` → `409 STALE_DOCUMENT`; without it still `200`;
+  - a deterministic lock test (hold the row in another transaction) that yields
+    `[200, 409]` with the lock and `[200, 200]` without it, proving the row lock is
+    load-bearing rather than incidental.
 - Concurrency cases use `Promise.all` on two supertest requests sharing a base
   revision.
 - Coverage expectation: every branch of the conflict classifier has a test.

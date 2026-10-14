@@ -54,13 +54,13 @@ tracker is configured in this repository).
 
 ### Phase 2: Core concurrency — `diagram-concurrency`
 
-- [ ] Task 4: `POST /api/diagrams/:id/patch` happy path + conflict detection
-- [ ] Task 5: `force` escape hatch and optional `baseVersion`/`If-Match` on `PUT`
-- [ ] Task 6: Parallel race test proving no lost updates
+- [x] Task 4: `POST /api/diagrams/:id/patch` happy path + conflict detection
+- [x] Task 5: `force` escape hatch and optional `baseVersion`/`If-Match` on `PUT`
+- [x] Task 6: Parallel race test proving no lost updates
 
 ### Checkpoint: Core Features (module `diagram-concurrency` complete)
-- [ ] Disjoint concurrent edits both commit; overlapping edits yield exactly one 409
-- [ ] Rejected patches leave the document byte-identical and do not bump `version`
+- [x] Disjoint concurrent edits both commit; overlapping edits yield exactly one 409
+- [x] Rejected patches leave the document byte-identical and do not bump `version`
 - [ ] Review with human before proceeding
 
 ### Phase 3: MCP foundation — `mcp-server`
