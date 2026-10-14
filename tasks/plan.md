@@ -44,12 +44,12 @@ tracker is configured in this repository).
 
 - [x] Task 1: Add `diagrams.version` migration
 - [x] Task 2: Element revision helpers (`lib/elements.ts`)
-- [ ] Task 3: Expose `version` + `ETag` on read/list
+- [x] Task 3: Expose `version` + `ETag` on read/list
 
 ### Checkpoint: Foundation
-- [ ] `npm run build -w packages/backend` passes
-- [ ] `npm test -w packages/backend` passes (existing suite unchanged)
-- [ ] Migration applies cleanly to a database with existing rows
+- [x] `npm run build -w packages/backend` passes
+- [x] `npm test -w packages/backend` passes (existing suite unchanged)
+- [x] Migration applies cleanly to a database with existing rows
 - [ ] Review with human before proceeding
 
 ### Phase 2: Core concurrency — `diagram-concurrency`

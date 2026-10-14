@@ -63,3 +63,32 @@ describe("Diagram lifecycle", () => {
     expect(restored.body.data.elements[0].type).toBe("ellipse");
   });
 });
+
+describe("Diagram version exposure", () => {
+  it("returns version 1 when a diagram is created", async () => {
+    const res = await request(app)
+      .post("/api/diagrams")
+      .send({ name: "Versioned create" })
+      .expect(201);
+    expect(res.body.version).toBe(1);
+  });
+
+  it("includes a numeric version on every row of the list response", async () => {
+    await request(app).post("/api/diagrams").send({ name: "Versioned list" }).expect(201);
+    const res = await request(app).get("/api/diagrams").expect(200);
+    expect(res.body.length).toBeGreaterThan(0);
+    for (const row of res.body) {
+      expect(typeof row.version).toBe("number");
+    }
+  });
+
+  it("returns the version in the detail body and as a weak ETag header", async () => {
+    const created = await request(app)
+      .post("/api/diagrams")
+      .send({ name: "Versioned detail" })
+      .expect(201);
+    const res = await request(app).get(`/api/diagrams/${created.body.slug}`).expect(200);
+    expect(res.body.version).toBe(1);
+    expect(res.headers.etag).toBe('W/"1"');
+  });
+});

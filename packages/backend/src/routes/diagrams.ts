@@ -19,8 +19,8 @@ function makeSlug(name: string, id: string): string {
   return `${slugify(name)}-${id.slice(0, 6)}`;
 }
 
-const LIST_COLS = "id, name, slug, thumbnail, created_at, updated_at";
-const DETAIL_COLS = "id, name, slug, thumbnail, data, created_at, updated_at";
+const LIST_COLS = "id, name, slug, thumbnail, version, created_at, updated_at";
+const DETAIL_COLS = "id, name, slug, thumbnail, data, version, created_at, updated_at";
 
 // Matches either a UUID or a slug
 const WHERE_ID_OR_SLUG = "(id::text = $1 OR slug = $1)";
@@ -55,6 +55,8 @@ router.get("/:id", async (req, res) => {
     res.status(404).json({ error: "Diagram not found" });
     return;
   }
+  // Expose the document revision as a weak ETag so callers can record what they read.
+  res.set("ETag", `W/"${rows[0].version}"`);
   res.json(rows[0]);
 });
 

@@ -58,15 +58,15 @@ header so callers can record the revision they read. Keep every existing field a
 the `LIST_COLS`/`DETAIL_COLS` behavior intact so the frontend is unaffected.
 
 **Acceptance criteria:**
-- [ ] `GET /api/diagrams/:idOrSlug` includes `version` in the body
-- [ ] `GET /api/diagrams/:idOrSlug` sets `ETag: W/"<version>"`
-- [ ] Existing `tests/diagrams.test.ts` assertions still pass unmodified
-- [ ] `POST /api/diagrams` still returns `201` with the existing fields
+- [x] `GET /api/diagrams/:idOrSlug` includes `version` in the body
+- [x] `GET /api/diagrams/:idOrSlug` sets `ETag: W/"<version>"`
+- [x] Existing `tests/diagrams.test.ts` assertions still pass unmodified
+- [x] `POST /api/diagrams` still returns `201` with the existing fields
 
 **Verification:**
-- [ ] Tests pass: `npm test -w packages/backend`
-- [ ] Build succeeds: `npm run build -w packages/backend`
-- [ ] Manual check: `curl -i http://localhost:3001/api/diagrams/<slug>` shows the `ETag` header
+- [x] Tests pass: `npm test -w packages/backend`
+- [x] Build succeeds: `npm run build -w packages/backend`
+- [x] Manual check: `curl -i http://localhost:3001/api/diagrams/<slug>` shows the `ETag` header
 
 **Dependencies:** Task 1
 **Files likely touched:** `packages/backend/src/routes/diagrams.ts`, `packages/backend/tests/diagrams.test.ts`
@@ -76,9 +76,9 @@ the `LIST_COLS`/`DETAIL_COLS` behavior intact so the frontend is unaffected.
 
 ## Checkpoint: Foundation
 
-- [ ] `npm run build -w packages/backend` passes
-- [ ] `npm test -w packages/backend` passes
-- [ ] Migration applies cleanly with existing rows present
+- [x] `npm run build -w packages/backend` passes
+- [x] `npm test -w packages/backend` passes
+- [x] Migration applies cleanly with existing rows present
 - [ ] Review with human before proceeding
 
 ---
