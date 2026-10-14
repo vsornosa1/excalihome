@@ -42,7 +42,7 @@ tracker is configured in this repository).
 
 ### Phase 1: Foundation — `diagram-concurrency`
 
-- [ ] Task 1: Add `diagrams.version` migration
+- [x] Task 1: Add `diagrams.version` migration
 - [ ] Task 2: Element revision helpers (`lib/elements.ts`)
 - [ ] Task 3: Expose `version` + `ETag` on read/list
 

@@ -16,13 +16,13 @@ reorder across phases.
 Backfill existing rows to `1` and keep the column non-nullable.
 
 **Acceptance criteria:**
-- [ ] `postgres/init/004_diagram_versioning.sql` adds `version INTEGER NOT NULL DEFAULT 1` idempotently (`ADD COLUMN IF NOT EXISTS`)
-- [ ] Existing rows have `version = 1` after the migration runs
-- [ ] Migration applies cleanly to a database that already contains diagrams
+- [x] `postgres/init/004_diagram_versioning.sql` adds `version INTEGER NOT NULL DEFAULT 1` idempotently (`ADD COLUMN IF NOT EXISTS`)
+- [x] Existing rows have `version = 1` after the migration runs
+- [x] Migration applies cleanly to a database that already contains diagrams
 
 **Verification:**
-- [ ] Manual check: `docker compose exec -T db psql -U excalihome -d excalihome < postgres/init/004_diagram_versioning.sql` succeeds
-- [ ] Manual check: `SELECT count(*) FROM diagrams WHERE version IS NULL` returns `0`
+- [x] Manual check: `docker compose exec -T db psql -U excalihome -d excalihome < postgres/init/004_diagram_versioning.sql` succeeds
+- [x] Manual check: `SELECT count(*) FROM diagrams WHERE version IS NULL` returns `0`
 
 **Dependencies:** None
 **Files likely touched:** `postgres/init/004_diagram_versioning.sql`
