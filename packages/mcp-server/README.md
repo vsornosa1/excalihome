@@ -76,11 +76,30 @@ is an explicit last-write-wins override.
 
 ## Tests
 
+Unit tests mock `fetch`, so they need no running backend or database:
+
 ```bash
 npm test -w packages/mcp-server
 ```
 
-Unit tests mock `fetch`, so they need no running backend or database.
+### End-to-end smoke test
+
+`scripts/test-mcp.mjs` spawns the built server over stdio, performs a real MCP
+handshake and exercises the tools against a running backend — including the
+concurrency behavior (a rejected patch must not bump the version).
+
+```bash
+npm run build -w packages/mcp-server
+node scripts/test-mcp.mjs                                                  # http://localhost:3001/api
+node scripts/test-mcp.mjs --api-url http://localhost:3002/api
+```
+
+It exits non-zero if any check fails and deletes the diagram it created.
+
+> **Docker users:** the backend container runs a built image. After changing
+> backend code you must rebuild it (`docker compose up --build -d backend`), or
+> the container will keep serving the old API and the smoke test will fail with
+> `HTTP_ERROR` on `patch_diagram`.
 
 > Diagnostics are written to **stderr**; stdout carries the MCP protocol and must
 > stay clean.

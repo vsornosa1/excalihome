@@ -134,6 +134,16 @@ EXCALIHOME_API_URL=http://localhost:3001/api node packages/mcp-server/dist/index
 See [`packages/mcp-server/README.md`](packages/mcp-server/README.md) for the tool
 list, client configuration, and the concurrency behavior.
 
+To verify the server end-to-end against a running backend:
+
+```bash
+node scripts/test-mcp.mjs              # backend must be reachable on :3001
+```
+
+> The backend runs from a built image inside Docker. After changing backend code,
+> rebuild it with `docker compose up --build -d backend` — otherwise the container
+> keeps serving the previous API.
+
 ### Concurrent editing
 
 `POST /api/diagrams/:id/patch` applies element `add`/`update`/`delete` operations
