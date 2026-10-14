@@ -177,14 +177,14 @@ Jest config mirroring the backend, and a validated `EXCALIHOME_API_URL` config m
 defaulting to `http://localhost:3001/api`.
 
 **Acceptance criteria:**
-- [ ] `packages/mcp-server` is picked up by the root `workspaces` glob and `npm install` succeeds
-- [ ] `tsconfig.json` and `jest.config.js` mirror the backend (`strict`, CommonJS, roots `tests`)
-- [ ] `config.ts` defaults to `http://localhost:3001/api`, honors the env var, and rejects a malformed URL
-- [ ] The MCP SDK and `zod` versions are pinned, and the actual tool-registration API is confirmed against them
+- [x] `packages/mcp-server` is picked up by the root `workspaces` glob and `npm install` succeeds
+- [x] `tsconfig.json` and `jest.config.js` mirror the backend (`strict`, CommonJS, roots `tests`)
+- [x] `config.ts` defaults to `http://localhost:3001/api`, honors the env var, and rejects a malformed URL
+- [x] The MCP SDK and `zod` versions are pinned, and the actual tool-registration API is confirmed against them
 
 **Verification:**
-- [ ] Build succeeds: `npm run build -w packages/mcp-server`
-- [ ] Tests pass: `npm test -w packages/mcp-server -- tests/config.test.ts`
+- [x] Build succeeds: `npm run build -w packages/mcp-server`
+- [x] Tests pass: `npm test -w packages/mcp-server -- tests/config.test.ts`
 
 **Dependencies:** None (consumes the spec's frozen contract)
 **Files likely touched:** `packages/mcp-server/package.json`, `packages/mcp-server/tsconfig.json`, `packages/mcp-server/jest.config.js`, `packages/mcp-server/src/config.ts`, `packages/mcp-server/tests/config.test.ts`
@@ -200,15 +200,15 @@ distinguishes `ELEMENT_CONFLICT`, `STALE_DOCUMENT`, and generic `HTTP_ERROR`, wi
 retrying.
 
 **Acceptance criteria:**
-- [ ] Each documented endpoint is reachable through one typed method
-- [ ] `409` with `code: ELEMENT_CONFLICT` surfaces `currentVersion` and `conflicts` to the caller
-- [ ] `409 STALE_DOCUMENT` is distinguished from `ELEMENT_CONFLICT`
-- [ ] A `5xx` maps to `HTTP_ERROR` and triggers exactly one request (no retry)
-- [ ] `EXCALIHOME_API_URL` is used as the base for every request
+- [x] Each documented endpoint is reachable through one typed method
+- [x] `409` with `code: ELEMENT_CONFLICT` surfaces `currentVersion` and `conflicts` to the caller
+- [x] `409 STALE_DOCUMENT` is distinguished from `ELEMENT_CONFLICT`
+- [x] A `5xx` maps to `HTTP_ERROR` and triggers exactly one request (no retry)
+- [x] `EXCALIHOME_API_URL` is used as the base for every request
 
 **Verification:**
-- [ ] Tests pass: `npm test -w packages/mcp-server -- tests/client.test.ts`
-- [ ] Build succeeds: `npm run build -w packages/mcp-server`
+- [x] Tests pass: `npm test -w packages/mcp-server -- tests/client.test.ts`
+- [x] Build succeeds: `npm run build -w packages/mcp-server`
 
 **Dependencies:** Task 7
 **Files likely touched:** `packages/mcp-server/src/client.ts`, `packages/mcp-server/tests/client.test.ts`
@@ -218,8 +218,8 @@ retrying.
 
 ## Checkpoint: MCP Foundation
 
-- [ ] `npm run build -w packages/mcp-server` passes
-- [ ] `npm test -w packages/mcp-server` passes with no backend running
+- [x] `npm run build -w packages/mcp-server` passes
+- [x] `npm test -w packages/mcp-server` passes with no backend running
 - [ ] Review with human before proceeding
 
 ---

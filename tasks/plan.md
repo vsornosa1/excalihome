@@ -65,12 +65,12 @@ tracker is configured in this repository).
 
 ### Phase 3: MCP foundation — `mcp-server`
 
-- [ ] Task 7: Scaffold `packages/mcp-server` (package, tsconfig, jest, config)
-- [ ] Task 8: Typed REST client with error mapping
+- [x] Task 7: Scaffold `packages/mcp-server` (package, tsconfig, jest, config)
+- [x] Task 8: Typed REST client with error mapping
 
 ### Checkpoint: MCP Foundation
-- [ ] `npm run build -w packages/mcp-server` passes
-- [ ] `npm test -w packages/mcp-server` passes with no backend running
+- [x] `npm run build -w packages/mcp-server` passes
+- [x] `npm test -w packages/mcp-server` passes with no backend running
 - [ ] Review with human before proceeding
 
 ### Phase 4: MCP tools — `mcp-server`
