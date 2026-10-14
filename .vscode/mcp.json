@@ -1,0 +1,12 @@
+{
+  "servers": {
+    "excalihome": {
+      "type": "stdio",
+      "command": "node",
+      "args": ["${workspaceFolder}/packages/mcp-server/dist/index.js"],
+      "env": {
+        "EXCALIHOME_API_URL": "http://localhost:3001/api"
+      }
+    }
+  }
+}
