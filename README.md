@@ -1,4 +1,4 @@
-# Excalihome
+# Excalihome 🎨
 
 A self-hosted, single-user clone of Excalidraw+ that replicates the core drawing UX, file management, and version history.
 
