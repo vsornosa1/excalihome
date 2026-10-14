@@ -1,6 +1,8 @@
-node_modules
+﻿node_modules
 dist
 .env
 .DS_Store
 *.log
 .agents
+DEMO.md
+SETUP.md

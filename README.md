@@ -2,6 +2,8 @@
 
 A self-hosted, single-user clone of Excalidraw+ that replicates the core drawing UX, file management, and version history.
 
+**It's free**: no accounts, no ads, and nothing to buy. If you find it useful, you can [buy me a coffee](https://ko-fi.com/sornosa).
+
 ## Features
 
 - Full Excalidraw drawing canvas (shapes, arrows, text, sticky notes, freehand, styles, colors, fonts).
