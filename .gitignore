@@ -6,3 +6,5 @@ dist
 .agents
 DEMO.md
 SETUP.md
+skills-lock.json
+films/*
